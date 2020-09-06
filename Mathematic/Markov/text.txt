@@ -1,0 +1,118 @@
+Je programme en C++ et Python . Tout d’abord, il me faut remercier 3 personnes avec qui j’ai eu le plaisir de discuter pour me documenter : Marc De Falco, Judicaël Courant et Julien Grenet.
+
+D’ailleurs avant d’aborder quelques compléments sur les aspects scientifiques, voici quelques références sur les questions des procédures existantes, notamment en France avec APB et Parcoursup.
+
+    Le rapport du Comité Ethique et Scientifique de Parcoursup : un rapport de 160 pages remis au parlement pour analyser la première année de fonctionnement de Parcoursup. Julien Grenet, Professeur à l’Ecole d’Economie de Paris y a notamment contribué.
+    De façon générale, le site de Julien Grenet contient nombre de ses contributions au débat public sur la question. Je vous recommande en particulier cette série de diapos faisant une revue du sujet;
+    Le site Matching in Practice, du « European network for research on matching practices in education and related markets », qui recense les pratiques d’appariement dans les différents pays, avec souvent un détail des procédures utilisées.
+    Une présentation de Judicaël Courant
+    Les articles du blog Ingénu Ingénieur, ainsi que ce fil Twitter de son auteur, Guillaume Ouattara.
+
+Quelques compléments sur les questions scientifiques et académiques
+
+Commençons d’abord par mentionner la source fondatrice, l’article de Gale et Shapley en 1962.
+
+Gale, D., & Shapley, L. S. (1962). College admissions and the stability of marriage. The American Mathematical Monthly, 69(1), 9-15.
+
+De façon assez étonnante, cet article est très court, et ne contient aucune équation, et même aucune bibliographie ! Les auteurs s’en amusent d’ailleurs en conclusion. Cet article aura quand même été à l’origine d’un champ de recherche qui aura valu à Lloyd Shapley le prix Nobel en 2012 ! David Gale était déjà décédé, mais le prix fut conjointement attribué à Alvin Roth, un autre chercheur qui a joué un rôle crucial dans le développement de ces travaux (comme nous le verrons plus loin).
+
+De façon plus générale, ce domaine de recherche se connecte de près avec la théorie des jeux, notamment via les notions d’équilibre de Nash (un acteur peut-il améliorer sa position de façon unilatérale ?) et d’optimum de Pareto. Ce point est notamment plus subtil que ce que j’ai laissé sous-entendre dans la vidéo.
+
+J’ai fait comme s’il y avait une notion naturelle de « meilleure solution », mais nous sommes dans un cas où l’on essaye d’optimiser simultanément la situation de plusieurs acteurs. Il faut donc raisonner du point de vues des optimums de Pareto. On dit qu’une configuration « Pareto-domine » une autre si elle est meilleure (ou équivalente) pour tous les acteurs. Donc en passant à la configuration dominante, on ne dégrade la situation de personne.
+
+Une configuration est « Pareto-optimale » si elle n’est dominée par aucune autre. A priori, il peut exister plein de situations Pareto-optimales, et rien a priori ne permet de favoriser l’une sur l’autre. C’est le concept de frontière de Pareto.
+
+Ce qu’il y a de remarquable avec l’algorithme de Gale-Shapley, c’est que pour les proposants, la solution trouvée Pareto-domine toutes les autres solutions stables. C’est donc la seule solution stable sur la frontière de Pareto. Ce qui est assez incroyable je trouve !
+
+Malgré tout, comme je l’explique dans la vidéo, il existe potentiellement des solutions qui Pareto-dominent la solution de Gale-Shapley, mais ne sont pas stables.
+
+Concernant les liens avec la théorie des jeux, j’ai expliqué que la procédure de GS n’est pas manipulable (pour les proposants). C’est-à-dire qu’aucun acteur ne peut améliorer sa situation en mentant sur ses préférences réelles. J’ai sous-entendu que c’était lié à l’idée d’optimalité, mais c’est un peu plus compliqué que ça.
+
+Il a fallu attendre 1981 et l’article
+
+Dubins, L. E., & Freedman, D. A. (1981). Machiavelli and the Gale-Shapley algorithm. The American Mathematical Monthly, 88(7), 485-494.
+
+puis 1982 et l’article d’Alvin Roth
+
+Roth, A. E. (1982). The economics of matching: Stability and incentives. Mathematics of operations research, 7(4), 617-628.
+
+pour démontrer plusieurs choses :
+
+    la procédure n’est pas manipulable par les proposants;
+    elle ne l’est même pas en cas de coalition de proposants qui essayent collectivement d’améliorer leur sort;
+    en revanche elle est manipulable par les « disposants », mais c’est particulièrement compliqué car cela nécessite de connaitre les préférences des autres.
+    toutefois Roth a démontré qu’il n’existe aucune procédure qui serait à la fois stable, et non-manipulable par les deux camps.
+
+Concernant la procédure des cycles d’échange optimaux, elle a été dévelopée par Gale, et publiée par Shapley et H.Scarf
+
+Shapley, L., & Scarf, H. (1974). On cores and inpisibility. Journal of mathematical economics, 1(1), 23-37.
+
+Cet algorithme est le « complémentaire » de GS, en ce sens qu’il est également non-manipulable, et qu’il fournit une solution Pareto-optimale mais sans garantie de stabilité. Il est notamment utilisé pour l’allocation des dons de reins quand on cherche à apparier des donneur et des receveurs.
+
+Parmi les références académiques importantes, on peut aussi citer
+
+Abdulkadiroğlu, A., & Sönmez, T. (2003). School choice: A mechanism design approach. American economic review, 93(3), 729-747.
+
+qui aborde notamment la question des attributions de place dans les écoles primaires. Le problème est un peu différent car les écoles ne sont pas censées sélectionner leurs écoliers sur la base de « préférences », mais elles peuvent en revanche appliquer des règles de priorité pour refléter des choix politiques : rapprocher les enfants d’une même famille, favoriser les boursiers, etc. C’est notamment un mécanisme de ce type qui est utilisé pour la procédure Affelnet, qui est le pendant de Parcoursup pour le lycée.
+
+Un autre résultat intéressant : il est fréquent que certains internes en médecine soient mariés (aux USA, mais aussi ailleurs…), ce qui complique la procédure d’affectation car on a alors deux étudiant(e)s dont les préférences sont interdépendantes. La valeur que l’un(e) ou l’autre attribuera à un hôpital dépendra fortement de la proximité avec son/sa conjoint(e). Et dans ce cas où il peut exister des préférences couplées, on perd la propriété de stabilité !
+
+Klaus, B., & Klijn, F. (2005). Stable matchings and preferences of couples. Journal of Economic Theory, 121(1), 75-106.
+
+Un point concernant les temps de calcul, et notamment le fait qu’APB ne prenne que quelques minutes : je tiens l’estimation de Judicaël Courant (voir ses diapos sur le sujet), qui m’a confirmé qu’avec une implémentation de son cru, sans optimisation particulière, pour le cas de 2 millions de candidats formulant 100 voeux parmi 1 million de places disponibles, cela prenait quelques minutes sur un PC portable.
+Compléments sur APB
+
+Je ne l’ai pas précisé dans la vidéo, mais tout comme Parcoursup, APB était un algorithme de Gale-Shapley dans sa version « formations proposantes ». Mais apparemment ce choix avait pour motivation des contraintes techniques liées au fait de faire plusieurs tours d’affectation.
+
+Concernant le fait que les formations non-sélectives classaient en fonction du rang des voeux des candidats, et donc qu’il fallait parfois mentir sur ses préférences réelles afin d’éviter des déboires, le cas me semble d’autant plus scandaleux que le « Guide du candidat APB » disait en prime, dans la séction « Droits du candidat »
+
+    « J’ai le droit de classer mes vœux en toute liberté sans subir une quelconque pression, sachant que les établissements d’origine et d’accueil n’ont jamais connaissance de ma liste ordonnée de vœux. »
+
+Ce qui est choquant, c’est que cette phrase est stricto-sensu vraie, mais induit totalement en erreur. En effet, les formations n’avaient pas accès à la liste ordonnée des voeux. MAIS pour les formations non-sélectives, cette liste était quand même utilisée pour classer les candidats, de façon automatique sur la plateforme, sans que les responsables des formations non-sélectives aient quoi que ce soit à faire.
+
+Donc dans la phrase citée ci-dessus, on affirme quelque chose de vrai, mais que les étudiants interprètent comme « Ok je ne me ferai pas pénaliser par une formation qui serait vexée que je ne l’ai pas classée plus haut », et pourtant in fine c’est exactement ce qui se passe !
+
+Sinon j’ai volontairement laissé de côté quelques détails sur les critères APB, comme le fait que ce qui comptait d’abord était le rang relatif du voeux (parmi les formations de même type), puis le rang absolu. Et aussi la prise en compte de cas particuliers comme la situation de famille, le handicap, les sportifs de haut-niveau…
+Parcoursup : des spécifications aux algorithmes
+
+Dans la vidéo, j’ai à plusieurs reprises pointé du doigt des éléments problématiques dans les procédures APB et Parcoursup. Pour bien éclairer le débat, il faut préciser deux choses.
+
+D’une part, les algorithmes (et leurs concepteurs) ne sont pas intrinsèquement en cause. Un algorithme est conçu pour répondre un problème donné, avec des spécifications données. Les algorithmes derrière APB et Parcoursup font leur travail, et le font bien, en ce sens qu’ils répondent correctement aux spécifications qui ont été données par le commanditaire : le ministère de l’éducation nationale. S’il y a quelque chose à critiquer, ce sont les spécifications et pas l’algorithme.
+
+D’autre part, ces spécifications sont en partie conditionnées par des obligations légales. Dans le cas d’APB, c’est bien parce que la loi interdisait le recours à toute forme de sélection qu’il a fallut adopter des critères comme le rang du voeu, et en dernier recours le tirage au sort. En un sens, étant donné le contexte légal, il n’y avait pas moyen de faire beaucoup mieux !
+
+Une des évolutions de Parcoursup a été justement de permettre de dépasser cette contrainte réglementaire en modifiant la loi (notamment par la loi dite « ORE », relative à l’orientation et à la réussite des étudiants). Il me semble que cette loi autorise de facto la sélection à l’entrée à l’université, mais seulement en cas de tension (?)
+
+Revenons sur un des points apparemment choquants de Parcoursup : le fait que les formations proposent et les élèves disposent, et que donc la solution soit « optimale » pour les formations, et « la pire possible parmi les solutions stables » pour les étudiants.
+
+Il semble qu’en pratique cela ne pose pas un gros problème, car les deux solutions se ressemblent quand les « marchés » sont grands et que les classements des proposants (ici les formations) se ressemblent (ce qui est souvent le cas : tout le monde veut les bons élèves). Avec APB/Parcoursup, la différence entre les deux solutions ne concernerait que quelques centaines de cas seulement parait-il ? (je tiens ça d’une communication personnelle, je n’ai pas de source officielle).
+
+Mais surtout la raison de ce choix « les formations proposent », c’est que si on faisait tourner Parcoursup, qui est un « Gale-Shapley au fil de l’eau très ralenti » dans l’autre sens, les étudiants commenceraient avec leur premier choix, qui ne pourrait au cours du temps que se dégrader, sans qu’on sache jamais jusqu’à la fin si on va garder son choix actuel. Encore plus infernal et anxiogène ! Bref, en quelque sorte, le choix de la non-hiérarchisation et de l’affectation au fil de l’eau impose de faire tourner l’algorithme dans le sens « les formations proposent ».
+
+Malgré tout, notons que de nombreux pays pratiquent  Gale-Shapley (avec hiérarchisation, donc automatisé) et sont passés de la version « optimale pour les formations », à la version « optimale pour les étudiants. Par exemple pour les internes aux USA, qui ont fait le changement en 1998.
+Algorithmes « locaux » et transparence
+
+Dernier point que j’ai occulté dans la vidéo, la question des procédures de classement « locales » qui sont appliquées par chaque formation. Première, cela génère un surcroit de travail important pour les responsables chargés de ce travail de classement. C’est également un jeu dangereux pour les formations, qui sont incitées à faire du « surbooking » dès le départ, pour anticiper les désistement et éviter de se retrouver en sous-nombre, mais avec le risque d’être obligés d’accepter plus d’étudiants que les capacités réelles de la formation. Bref, j’imagine que ce fut un casse-tête pour beaucoup !
+
+Ensuite, on peut se demander comment se fait ce classement ? En principe, les formations font ce qu’elles veulent. Toutefois, elles reçoivent de la plateforme une liste (Excel j’imagine) de tous les candidats ayant postulé, avec les éléments de décision correspondant : notes, avis des professeurs etc. A cela s’ajoute les nouveaux éléments du dossier comme la lettre de motivation.
+
+A priori, cette feuille Excel est là pour servir d’outil de décision, et permet aux formations de choisir des critère de pondération, et de faire un classement à partir de ça. Mais on ne sait rien des coefficients, des critères. Et en dernier ressort, les formations n’ont aucun compte à rendre, elles ont toute liberté.
+
+En un sens, c’est bien pour la prise en compte de cas particuliers, qui ne peuvent se réduire à une série de notes (notamment pour prendre en compte des aspects comme le projet motivé, le handicap, etc.). Mais tout cela manque cruellement de transparence : aucun moyen de savoir ni comprendre pourquoi on n’a pas été pris alors que son voisin l’a été.
+
+A cela s’ajoutent les conflits d’intérêt potentiels, et les inégalités créées par certains éléments du dossier comme la lettre de motivation. On sait très bien qu’elle sera rédigée par les parents, et favorisera les classes socioprofessionnelles plus élevées aux détriment des autres. A tel point qu’on trouve même maintenant des services de « coaching » (facturés fort cher) pour aider les étudiants à réussir leurs demandes Parcoursup. Encore un facteur d’inégalité.
+
+Pour améliorer cela, on pourrait imaginer que chaque formation classe les étudiants à partir des notes auxquels sont appliqués des coefficients qui seraient publics (mais spécifique de chaque formation), et permettraient donc à chacun de comprendre a posteriori quelle a été son classement et pour quelle raison.
+
+Cela n’a rien d’incongru, c’est pratiqué dans de nombreux pays, et cela peut même être implémenté sur la plateforme est pas au niveau local des formations. Les formations se contentent de fixer leurs coefficients et leurs critères, et c’est la plateforme qui établit les classements : simple, transparent, et permet d’éviter les magouilles et conflits d’intérêt.
+
+Du point de vue de la transparence, on peut saluer le fait que le ministère est publié de façon ouverte le code de Parcoursup. On pourrait imaginer aller plus loin en publiant aussi les données de façon anonymisées, de façon à ce que chacun puisse vérifier les calculs de classement et les affectations. Cela permettrait de s’assurer de l’absence de bug ou de dysfonctionnement sur la machine qui fait tourner les algorithmes.
+
+On pourrait même pousser plus loin en demandant l’établissement de preuve de programme par des méthodes formelles, comme cela existe (et la recherche académique française sur ce domaine est d’ailleurs très active).
+Du classement local à la liste d’appel
+
+Comme je l’ai expliqué dans la vidéo, une des forces de Parcoursup est de permettre la prise en compte de quota dans les formations : un quota minimum de boursier, et un quota maximum d’étudiants « hors académie », et ce de façon individualisée pour les formations.
+
+Le travail des chercheurs Claire Mathieu et Hugo Gimbert a notamment été de travailler à la prise en compte de ces quotas. C’est-à-dire que leur algorithme prend en entrée le classement « local » établi par chaque formation, et produit en sortie la « liste d’appel », qui est une légère modification du classement local permettant de prendre en compte les quotas.
+
+De façon générale, classement local et liste d’appel seront donc légèrement différents, c’est la liste d’appel qui sera utilisée pour faire des propositions.
