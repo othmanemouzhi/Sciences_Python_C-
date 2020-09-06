@@ -37,19 +37,15 @@ void reset();
 void affiche();
 
 // Writer 
-
 void write(int lenght, string name_result);
 
-
+// function writing the text
 void write(int lenght,string name_result){
     string text="";
     string prv="";
     for(int i=0;i<lenght;i++){
         string word=pick_one(prv);
         text += word + " ";
-
-        //cout << prv << " -> " << word << endl;
-
         prv=word;
 
 
@@ -62,16 +58,13 @@ void write(int lenght,string name_result){
     else{
         cout << "ERROR:COULDN'T OPEN THE FILE" << endl;
     }
-
-
-    //cout << text << endl;
-
 }
 
 void reset(){
     markov.clear();
 }
 
+// function returning a string choose randomly 
 string pick_one(string parent){
 
     int k=find_parent(parent);
@@ -101,6 +94,7 @@ string pick_one(string parent){
 
 }
 
+// function returning the position of the parent in the markov chain 
 int find_parent(string name){
     for(int i=0;i<markov.size();i++){
         if(name==markov[i].name){
@@ -110,6 +104,7 @@ int find_parent(string name){
     return -1;
 }
 
+// function printing the markov chain in order to check the function learn()
 void affiche(){
     cout <<"\n";
     cout << "\n" << "Chaîne de Markov" << endl;
@@ -124,6 +119,7 @@ void affiche(){
     cout <<"\n";
 }
 
+// function learning and fulling the markob chain 
 int learn(string &name_file){
 
     int lenght=0;
@@ -159,13 +155,9 @@ int learn(string &name_file){
     
     string prv="";
     for(int i=0;i<list_mot.size();i++){
-        //cout << "oui" << endl;
         add_item(prv, list_mot[i]);
-        //cout << "oui1" << endl;
-        //cout << " " << prv << "  " << list_mot[i] << endl;
         prv=list_mot[i];
     }
-    
 
     //affiche();
 
@@ -173,22 +165,18 @@ int learn(string &name_file){
 
 }
 
+// function adding in the markov chain the fact that name_enfant is after name_parent
 void add_item(string name_parent, string name_enfant){
 
     int k=find_parent(name_parent);
     bool oui=false;
-    //cout << "oui2" << endl;
     if(k!=-1){
-        //cout << "1";
-        //cout << "oui2.0" << endl;
         for(int i=0;i<markov[k].enfants.size();i++){
-            //cout << "oui2.1" << endl;
             if(markov[k].enfants[i].name==name_enfant){
                 markov[k].enfants[i].occurence += 1;
                 oui=true;
             }
         }
-        //cout << "oui2.2" << endl;
         if(oui==false){
             enfant.name=name_enfant;
             enfant.occurence=1;
@@ -196,18 +184,13 @@ void add_item(string name_parent, string name_enfant){
         }
     }
     else{
-        //cout << "2";
-        //cout << "oui2.3" << endl;
         enfant.occurence=1;
-        //cout << "oui2.35" << endl;
         enfant.name=name_enfant;
-        //cout << "oui2.4" << endl;
         (parent.enfants).push_back(enfant);
         parent.name=name_parent;
         markov.push_back(parent);
         parent.enfants.clear();
     }
-    //cout << "oui3" << endl;
 
     //affiche();
 }
